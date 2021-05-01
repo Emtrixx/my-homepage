@@ -1,0 +1,15 @@
+{
+  "name": "my-homepage",
+  "version": "1.0.0",
+  "description": "homepage for my webserver",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Jesse Günzl",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
