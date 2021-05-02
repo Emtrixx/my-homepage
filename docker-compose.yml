@@ -1,0 +1,26 @@
+version: "3"
+
+services: 
+    express-server:
+        build: .
+        image: my-homepage
+        ports: 
+            - "3000:3000"
+        networks: 
+            - homepage-app
+        depends_on: 
+            - mongo
+    mongo:
+        image: mongo
+        networks: 
+            - homepage-app
+        volumes: 
+            - mongo-data:/data/db
+
+networks: 
+    homepage-app:
+        driver: bridge
+
+volumes: 
+    mongo-data:
+        driver: local
