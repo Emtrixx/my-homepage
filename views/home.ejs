@@ -1,15 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
-    <h1>Welcome to my website</h1>
+<%- layout('layouts/boilerplate.ejs') %> 
+<section id="hero" class="d-flex flex-column align-items-center justify-content-center">
+    <div class="headline">
+        <h1 class="underline"><u>Welcome</u></h1>
+    </div>
+    <h5>I am a <strong>Web-Developer</strong> from Hamburg, Germany.</h5>
+    <h5>Also interested in Data-Science, Game-Development and Dev-Ops.</h5>
     <hr>
-    <h4>Leave a comment:</h4>
+</section>
+
+<section id="bio">
+    <h2>Bio: Coming soon</h2>
+</section>
+
+<section id="projects">
+    <h2>Projects: Coming soon</h1>
+</section>
+
+<section id="contact">
+    <h1>Contact: Coming soon</h1>
+    <!-- <h4>Leave a comment:</h4>
     <form action="/" method="POST">
         <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
         <button>Submit</button>
@@ -19,6 +28,5 @@
             <p><strong><%= comment.date %> </strong></p>
             <p><%= comment.comment %></p>
         </div>
-    <% } %> 
-</body>
-</html>
+    <% } %>  -->
+</section>

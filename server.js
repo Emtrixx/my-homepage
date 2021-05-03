@@ -6,6 +6,7 @@ if(process.env.NODE_ENV !== "production") {
 const express = require('express');
 const app = express();
 const ejs = require('ejs')
+const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose')
 const Comment = require('./models/comment');
 
@@ -22,6 +23,7 @@ mongoose.connect(dburl, {
         console.log("ERROR - Could not connect to mongodb");
     })
 
+app.engine('ejs',ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
