@@ -4,6 +4,7 @@ services:
     express-server:
         build: .
         image: my-homepage
+        restart: unless-stopped
         ports: 
             - "3000:3000"
         networks: 
@@ -12,6 +13,7 @@ services:
             - mongo
     mongo:
         image: mongo
+        restart: unless-stopped
         networks: 
             - homepage-app
         volumes: 
