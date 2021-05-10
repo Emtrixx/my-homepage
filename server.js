@@ -5,7 +5,6 @@ if(process.env.NODE_ENV !== "production") {
 
 const express = require('express');
 const app = express();
-const ejs = require('ejs')
 const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose')
 const Comment = require('./models/comment');
