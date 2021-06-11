@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 15.x]
+        node-version: [14.x, 15.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -31,7 +31,7 @@ jobs:
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
+        key: ${{ secrets.HOME_SSH }}
         script: |
           whoami
           ls ~/actions-runner/node-app/my-homepage/my-homepage
