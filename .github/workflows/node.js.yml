@@ -33,5 +33,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.HOME_SSH }}
         script: |
-          whoami
-          ls ~/actions-runner/node-app/my-homepage/my-homepage
+          cd ~/actions-runner/node-app/my-homepage/my-homepage
+          docker-compose down
+          docker-compose up -d --build
+          echo 'Erfolgreich auf Server deployed!'
