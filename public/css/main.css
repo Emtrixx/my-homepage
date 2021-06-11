@@ -1,3 +1,23 @@
+#hero {
+    min-height: 95vh;
+}
+
 section {
-    min-height: 100vh;
+    min-height: 60vh;
+}
+
+h2 {
+    margin: 2rem 0rem;
+}
+
+.card-text {
+    height: 4rem;
+}
+
+.card {
+    transition: 300ms all;
+}
+
+.card:hover {
+    transform: scale(1.05);
 }
