@@ -18,6 +18,10 @@ h2 {
     transition: 300ms all;
 }
 
+.card-img-top {
+    object-fit: cover;
+}
+
 .card:hover {
     transform: scale(1.05);
 }
