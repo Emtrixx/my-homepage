@@ -6,7 +6,7 @@ services:
         image: my-homepage
         restart: unless-stopped
         ports: 
-            - "3000:3000"
+            - "127.0.0.1:3000:3000"
         networks: 
             - homepage-app
         depends_on: 
