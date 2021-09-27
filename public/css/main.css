@@ -3,7 +3,7 @@
 }
 
 section {
-    min-height: 60vh;
+    min-height: 70vh;
 }
 
 h2 {
@@ -24,4 +24,8 @@ h2 {
 
 .card:hover {
     transform: scale(1.05);
+}
+
+.skill {
+    width: 80%;
 }
