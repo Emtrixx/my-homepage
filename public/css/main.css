@@ -38,6 +38,10 @@ h2 {
     transform: scale(1.03);
 }
 
+.contact:hover {
+    transform: scale(1);
+}
+
 .skill {
     width: 80%;
 }
