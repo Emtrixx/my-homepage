@@ -3,10 +3,10 @@ body {
 }
 
 section {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.849);
     margin: 5rem 0;
     border-radius: 10px;
-    opacity: 0.8;
+    /* opacity: 0.9; */
 }
 
 #hero {
