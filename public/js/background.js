@@ -40,33 +40,33 @@ window.addEventListener(
 
 
 //fractal
-let fractal;
-function gltfLoad(filepath) {
-  const loader = new GLTFLoader(manager);
-  loader.load(filepath, (gltf) => {
-      gltf.scene.traverse((c) => {
-          c.castShadow = true;
-      });
-      gltf.scene.scale.set(0.01, 0.01, 0.01);
-      fractal = gltf.scene;
-      scene.add(fractal);
-      animate();
-  },
-      // called while loading is progressing
-      xhr => {
+// let fractal;
+// function gltfLoad(filepath) {
+//   const loader = new GLTFLoader(manager);
+//   loader.load(filepath, (gltf) => {
+//       gltf.scene.traverse((c) => {
+//           c.castShadow = true;
+//       });
+//       gltf.scene.scale.set(0.01, 0.01, 0.01);
+//       fractal = gltf.scene;
+//       scene.add(fractal);
+//       animate();
+//   },
+//       // called while loading is progressing
+//       xhr => {
 
-          // Entity.params.loadingBar.update('character', xhr.loaded, xhr.total);
+//           // Entity.params.loadingBar.update('character', xhr.loaded, xhr.total);
 
-      },
-      // called when loading has errors
-      err => {
+//       },
+//       // called when loading has errors
+//       err => {
 
-          console.error(err);
+//           console.error(err);
 
-      }
-  )
-}
-gltfLoad('/3d/scene.gltf')
+//       }
+//   )
+// }
+// gltfLoad('/3d/scene.gltf')
 
 // Lights
 const pointLight = new THREE.PointLight(0xffffff);
@@ -80,6 +80,22 @@ scene.add(pointLight, ambientLight);
 const spaceTexture = new THREE.TextureLoader().load('images/universe.jpg');
 scene.background = spaceTexture;
 
+// moon
+const moonTexture = new THREE.TextureLoader().load('3d/moon/moon.jpg');
+const normalTexture = new THREE.TextureLoader().load('3d/moon/normal.jpg');
+
+const moon = new THREE.Mesh(
+  new THREE.SphereGeometry(3, 32, 32),
+  new THREE.MeshStandardMaterial({
+    map: moonTexture,
+    normalMap: normalTexture,
+  })
+);
+
+moon.scale.set(3,3,3)
+moon.position.z = 10
+moon.position.y = 20
+scene.add(moon);
 
 //scrolling
 function moveCamera() {
@@ -100,15 +116,16 @@ function animate() {
     requestAnimationFrame(animate);
   
     // fractal.rotation.x += 0.01;
-    fractal.rotation.y += 0.01;
+    // fractal.rotation.y += 0.01;
     // fractal.rotation.z += 0.01;
   
-    // moon.rotation.x += 0.005;
+    moon.rotation.y += 0.005;
   
     // controls.update();
   
     renderer.render(scene, camera);
   }
+animate();
   
   
 
