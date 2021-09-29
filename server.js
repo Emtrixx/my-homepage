@@ -30,6 +30,12 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+//threejs
+app.use('/build/', express.static(__dirname + '/node_modules/three/build'));
+app.use('/jsm/', express.static(__dirname + '/node_modules/three/examples/jsm'));
+
+
+//routes
 app.get('/', async(req, res) => {
     const comments = await Comment.find();
     res.render('home', {comments});
