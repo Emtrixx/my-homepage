@@ -101,7 +101,7 @@ scene.add(moon);
 function moveCamera() {
   const t = document.body.getBoundingClientRect().top;
 
-  camera.position.z = 150 - Math.log(Math.abs(t+100)) * 14;
+  camera.position.z = 150 - Math.log(Math.abs(t-100)) * 14;
   // console.log(camera.position.z)
   // camera.position.x = t * -0.0002;
   // camera.rotation.y = t * -0.0002;
