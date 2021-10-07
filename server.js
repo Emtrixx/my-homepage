@@ -52,8 +52,8 @@ app.post('/', async(req,res) => {
     res.redirect('/');
 })
 
-app.get('/Test', (req, res) => {
-    res.send('Gefunden!')
+app.get('/*', (req, res) => {
+    res.render('404')
 })
 
 const port = 3000;
