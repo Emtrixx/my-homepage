@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Mandelbrot</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- <style>
+      body {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+    </style> -->
+  </head>
+  <body>
+    <%- include("../partials/navbar.ejs") %>
+    <div class="container text-center">
+      
+      <canvas class="m-3" id="mandelbrotwasm-canvas"></canvas>
+      <div>
+        <strong>Controls</strong>
+        <p>
+          WASD - Move <br>
+          Q/E - Zoom
+        </p>
+      </div>
+      <form id="form" class="d-flex flex-column align-items-center justify-content-center" >
+      <div class="col-md-4">
+        <strong>Input</strong><br>
+        <div>
+          <label class="form-label" for="width">Width</label>
+          <input class="form-control" type="number" name="width" id="width">
+        </div>
+        <div>
+          <label class="form-label" for="height">Height</label>
+          <input class="form-control" type="number" name="height" id="height">
+        </div>
+        <div>
+          <label class="form-label" for="centX">Center-X</label>
+          <input class="form-control" type="number" name="centX" id="centX">
+        </div>
+        <div>
+          <label class="form-label" for="centY">Center-Y</label>
+          <input class="form-control" type="number" name="centY" id="centY">
+        </div>
+        <div>
+          <label class="form-label" for="scale">Scale</label>
+          <input class="form-control" type="number" name="scale" id="scale">
+        </div>
+        <div>
+          <label class="form-label" for="iterations">Iterations</label>
+          <input class="form-control" type="number" name="iterations" id="iterations">
+        </div>
+      </div>
+      <button>Submit</button>
+    </form>
+    <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
+    <script src="/mandelbrot/bootstrap.js"></script>
+  </div>
+  </body>
+  </html>

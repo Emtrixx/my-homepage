@@ -45,6 +45,10 @@ app.get('/impressum', (req, res) => {
     res.render('impressum')
 })
 
+app.get('/mandelbrot', (req, res) => {
+    res.render('mandelbrot/index')
+})
+
 app.post('/', async(req,res) => {
     const comment = new Comment(req.body);
     comment.date = Date.now()
