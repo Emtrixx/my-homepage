@@ -2,18 +2,18 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Mandelbrot</title>
+    <title>Hello wasm-pack!</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
   </head>
   <body>
     <%- include("../partials/navbar.ejs") %>
     <div class="container text-center">
-      <canvas class="m-3" id="mandelbrotwasm-canvas"></canvas>
+      <canvas class="m-3" id="raytracerwasm-canvas"></canvas>
       <div>
         <strong>Controls</strong>
         <p>
           WASD - Move <br>
-          Q/E - Zoom
+          Q/E - Brightness
         </p>
       </div>
       <form id="form" class="d-flex flex-column align-items-center justify-content-center" >
@@ -36,18 +36,14 @@
           <input class="form-control" type="number" name="centY" id="centY">
         </div>
         <div>
-          <label class="form-label" for="scale">Scale</label>
-          <input class="form-control" type="number" name="scale" id="scale">
-        </div>
-        <div>
-          <label class="form-label" for="iterations">Iterations</label>
-          <input class="form-control" type="number" name="iterations" id="iterations">
+          <label class="form-label" for="brightness">Brightness</label>
+          <input class="form-control" type="number" name="brightness" id="brightness">
         </div>
       </div>
       <button>Submit</button>
     </form>
     <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
-    <script src="/mandelbrot/bootstrap.js"></script>
+    <script src="/raytracer/bootstrap.js"></script>
   </div>
   </body>
-  </html>
+</html>

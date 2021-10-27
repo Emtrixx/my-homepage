@@ -36,17 +36,21 @@ app.use('/jsm/', express.static(__dirname + '/node_modules/three/examples/jsm'))
 
 
 //routes
-app.get('/', async(req, res) => {
+app.get('/', async(_, res) => {
     const comments = await Comment.find();
     res.render('home', {comments});
 })
 
-app.get('/impressum', (req, res) => {
+app.get('/impressum', (_, res) => {
     res.render('impressum')
 })
 
-app.get('/mandelbrot', (req, res) => {
+app.get('/mandelbrot', (_, res) => {
     res.render('mandelbrot/index')
+})
+
+app.get('/raytracer', (_, res) => {
+    res.render('raytracer/index')
 })
 
 app.post('/', async(req,res) => {
