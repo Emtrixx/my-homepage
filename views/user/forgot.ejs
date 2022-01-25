@@ -1,0 +1,12 @@
+<%- layout('layouts/boilerplate.ejs') %> 
+
+<div class="loginForm">
+    <form class="form-signin" action="/forgot-password" method="POST">
+        <i class="bi bi-person-circle" style="font-size: 6rem; color:#198754;"></i> <!-- Colour of btn-success used -->
+        <h1 class="h2 mb-3 font-weight-normal">Reset your password</h1>
+        <p>If there is an account with the email address, we will send instructions to reset it</p>
+        <input type="email" id="email" class="form-control" name="email" placeholder="Email address" required autofocus>
+        <button class="btn btn-lg btn-success btn-block" type="submit">Request password reset</button>
+        <p><a class="link-secondary" href="/login">Login</a> &bull; <a class="link-secondary" href="/register">Register</a></p>
+    </form>    
+</div>
