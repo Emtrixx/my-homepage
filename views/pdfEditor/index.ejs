@@ -11,15 +11,25 @@
     <link rel="stylesheet" href="/css/pdfEditor.css">
 </head>
 
-<body class="d-flex flex-column vh-100">
+<body class="vh-100">
     <%- include("../partials/navbar.ejs") %>
     <%- include('../partials/flash.ejs') %>
-        <main class="container text-center m-2">
-            <h2>Upload PDF</h2>
-            <form action="/pdfEditor" method="POST" enctype="multipart/form-data">
-                <input type="file" name="pdf" id="pdf">
-                <button>Submit</button>
-            </form>
+        <main class="container">
+            <div class="d-flex justify-content-center">
+                <div class="card" style="width: 22rem;">
+                    <img src="/images/pdf.avif" class="card-img-top" alt="Pdf image">
+                    <div class="card-body">
+                        <h5 class="card-title">Upload PDF</h5>
+                        <form action="/pdfEditor" method="POST" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">Only upload encrypted PDF</label>
+                                <input class="form-control" type="file" name="pdf" id="pdf">
+                            </div>
+                            <button class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </main>
     <%- include("../partials/footer.ejs") %>
     <script src="/js/bootstrap.min.js"></script>     
