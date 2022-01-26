@@ -4,25 +4,25 @@ const asyncWrapper = require('../utils/asyncWrapper');
 const passport = require('passport');
 const User = require('../models/user');
 
-router.route('/register')
-    .get( (req,res) => {
-        res.render('user/register');
-    })
-    .post(asyncWrapper( async(req,res) => {
-        try{
-            const { username, email, password } = req.body;
-            const user = new User({ username, email });
-            const regUser = await User.register(user, password);
-            req.login(regUser, err => {
-                if(err) return next(err);
-                req.flash('success', 'Welcome');
-                res.redirect('/');
-            })
-        } catch(e) {
-            req.flash('error', e.message);
-            return res.redirect('/register');
-        }
-    }));
+// router.route('/register')
+//     .get( (req,res) => {
+//         res.render('user/register');
+//     })
+//     .post(asyncWrapper( async(req,res) => {
+//         try{
+//             const { username, email, password } = req.body;
+//             const user = new User({ username, email });
+//             const regUser = await User.register(user, password);
+//             req.login(regUser, err => {
+//                 if(err) return next(err);
+//                 req.flash('success', 'Welcome');
+//                 res.redirect('/');
+//             })
+//         } catch(e) {
+//             req.flash('error', e.message);
+//             return res.redirect('/register');
+//         }
+//     }));
 
 router.route('/login')
     .get((req,res) => {
