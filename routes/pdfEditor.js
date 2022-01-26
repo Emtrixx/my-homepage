@@ -10,17 +10,26 @@ router
   .route("/")
   .post(isLoggedIn, upload.single("pdf"), (req, res) => {
     console.log(req.file);
-    const { path, originalname } = req.file;
-    const newPath = `uploads/decrypt_${originalname}`;
+    if(!req.file) {
+      res.status(404);
+      console.log("No File selected");
+      req.flash('error', "No File selected");
+      res.redirect('/pdfEditor');
+      return
+    }
+    
+    const { originalname, filename } = req.file;
+    const path = `./uploads/${filename}`
+    const newPath = `./uploads/decrypt_${originalname}`;
     // TODO Put path in env
-    exec(`qpdf --show-encryption /home/node/app/${path}`, (err, stdout, stderr) => {
+    exec(`qpdf --show-encryption ${path}`, (err, stdout, stderr) => {
       if (err) {
         console.log(err);
         res.status(422);
         console.log("Wrong File format");
         req.flash('error', "Wrong File format");
         res.redirect('/pdfEditor');
-        deleteFile(`/home/node/app/${path}`)
+        deleteFile(`${path}`)
         return;
       }
       console.log(`stdout: ${stdout}`);
@@ -31,11 +40,11 @@ router
         console.log("File not encrypted");
         req.flash('error', "File not encrypted");
         res.redirect('/pdfEditor');
-        deleteFile(`/home/node/app/${path}`)
+        deleteFile(`${path}`)
         return;
       } else {
         exec(
-          `qpdf --decrypt /home/node/app/${path} /home/node/app/${newPath}`,
+          `qpdf --decrypt ${path} ${newPath}`,
           (err, stdout, stderr) => {
             if (err) {
               console.log(err);
@@ -43,7 +52,7 @@ router
               console.log("File could not be decrypted");
               req.flash('error', "File could not be decrypted");
               res.redirect('/pdfEditor');
-              deleteFile(`/home/node/app/${path}`)
+              deleteFile(`${path}`)
               return;
             }
             console.log(`stdout: ${stdout}`);
@@ -57,7 +66,8 @@ router
               console.log("File not found");
               res.send("File not found");
             }
-            deleteFile(`/home/node/app/${path}`)
+            deleteFile(`${path}`)
+            deleteFile(`${newPath}`)
           }
         );
       }
