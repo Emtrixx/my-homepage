@@ -16,21 +16,34 @@ router
     exec(`qpdf --show-encryption /home/node/app/${path}`, (err, stdout, stderr) => {
       if (err) {
         console.log(err);
+        res.status(422);
+        console.log("Wrong File format");
+        req.flash('error', "Wrong File format");
+        res.redirect('/pdfEditor');
+        deleteFile(`/home/node/app/${path}`)
         return;
       }
       console.log(`stdout: ${stdout}`);
       console.log(`stderr: ${stderr}`);
 
-      if (stdout == "File is not encrypted \n") {
+      if (stdout == "File is not encrypted\n") {
         res.status(422);
         console.log("File not encrypted");
-        res.send("File not encrypted");
+        req.flash('error', "File not encrypted");
+        res.redirect('/pdfEditor');
+        deleteFile(`/home/node/app/${path}`)
+        return;
       } else {
         exec(
           `qpdf --decrypt /home/node/app/${path} /home/node/app/${newPath}`,
           (err, stdout, stderr) => {
             if (err) {
               console.log(err);
+              res.status(500);
+              console.log("File could not be decrypted");
+              req.flash('error', "File could not be decrypted");
+              res.redirect('/pdfEditor');
+              deleteFile(`/home/node/app/${path}`)
               return;
             }
             console.log(`stdout: ${stdout}`);
@@ -44,6 +57,7 @@ router
               console.log("File not found");
               res.send("File not found");
             }
+            deleteFile(`/home/node/app/${path}`)
           }
         );
       }
@@ -56,29 +70,12 @@ router
 
 module.exports = router;
 
-const { exec } = require("child_process");
 
-exec("qpdf --show-encryption ./IV_06.pdf", (err, stdout, stderr) => {
-  if (err) {
-    console.log(err);
-    return;
+function deleteFile(path) {
+  try {
+    fs.unlinkSync(path)
+    console.log('File deleted')
+  } catch(err) {
+    console.error(err)
   }
-  console.log(`stdout: ${stdout}`);
-  console.log(`stderr: ${stderr}`);
-
-  if (stdout == "File is not encrypted \n") {
-    console.log("not encripted");
-  } else {
-    exec(
-      "qpdf --decrypt ./IV_06.pdf ./decrypt1.pdf ",
-      (err, stdout, stderr) => {
-        if (err) {
-          console.log(err);
-          return;
-        }
-        console.log(`stdout: ${stdout}`);
-        console.log(`stderr: ${stderr}`);
-      }
-    );
-  }
-});
+}
