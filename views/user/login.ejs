@@ -1,6 +1,6 @@
 <%- layout('layouts/boilerplate.ejs') %> 
 
-<div class="loginForm">
+<!-- <div class="loginForm">
     <form class="form-signin" action="/login" method="POST">
         <h1 class="h2 mb-3 font-weight-normal">Login</h1>
         <input type="text" id="username" class="form-control" name="username" placeholder="Username" required autofocus>
@@ -8,4 +8,28 @@
         <button class="btn btn-lg btn-success btn-block" type="submit"><i class="bi bi-box-arrow-in-right"></i> Login</button>
         <p><a class="link-secondary" href="/forgot-password">Forgot your password?</a> &bull; <a class="link-secondary" href="/register">Register now!</a></p>
     </form>    
+</div> -->
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <div class="card shadow">
+        <img src="https://images.unsplash.com/photo-1517824806704-9040b037703b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="campground" class="card-img-top">
+        <div class="card-body">
+        <h1 class="my-3 card-title">Login</h1>
+        <form class="form-signin" action="/login" method="POST">
+            <div>
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" autofocus required>
+            </div>
+            <div>
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" id="password" required>
+            </div>
+            <div class="my-3">
+                <button class="btn btn-success" type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+    </div>
+    </div>
 </div>

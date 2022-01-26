@@ -14,15 +14,13 @@
 <body class="d-flex flex-column vh-100">
     <%- include("../partials/navbar.ejs") %>
     <%- include('../partials/flash.ejs') %>
-    <div class="container">
-        <main>
+        <main class="container text-center m-2">
             <h2>Upload PDF</h2>
             <form action="/pdfEditor" method="POST" enctype="multipart/form-data">
                 <input type="file" name="pdf" id="pdf">
                 <button>Submit</button>
             </form>
         </main>
-    </div>
     <%- include("../partials/footer.ejs") %>
     <script src="/js/bootstrap.min.js"></script>
     <script type="module" src="/js/background.js"></script>
