@@ -6,13 +6,13 @@ services:
         image: homepage
         restart: unless-stopped
         ports: 
-            - "127.0.0.1:3000:3000"
+            - "127.0.0.1:3001:3000"
         networks: 
             - homepage-app
         depends_on: 
             - mongo
     mongo:
-        image: mongo
+        image: mongo:4.4.10
         restart: unless-stopped
         networks: 
             - homepage-app
