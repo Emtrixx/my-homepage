@@ -10,7 +10,7 @@ router.route('/')
 .post(isLoggedIn ,upload.single('pdf'), (req, res) => {
     console.log(req.file)
     const { path, originalname } = req.file;
-    const newPath = `pdf/decrypt_${originalname}`
+    const newPath = `uploads/decrypt_${originalname}`
     // TODO Put path in env
     exec(`qpdf --decrypt /home/node/app/${path} /home/node/app/${newPath}`, (err, stdout, stderr) => {
       if (err) {
