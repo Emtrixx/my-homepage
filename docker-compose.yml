@@ -3,7 +3,7 @@ version: "3"
 services: 
     express-server:
         build: .
-        image: my-homepage
+        image: homepage
         restart: unless-stopped
         ports: 
             - "127.0.0.1:3000:3000"

@@ -8,19 +8,7 @@
     <meta name="description" content="Portfolio site for Jesse Guenzl: Web-Development, Data-Science and Game-Development.">
     <title>Jesse Günzl</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="icon" href="images/moon.avif">
-    <script type="importmap">
-        {
-          "imports": {
-            "three": "./build/three.module.js",
-            "three/examples/jsm/controls/OrbitControls":"./jsm/controls/OrbitControls.js",
-            "three/examples/jsm/libs/stats.module":"./jsm/libs/stats.module.js",
-            "three/examples/jsm/libs/dat.gui.module":"./jsm/libs/dat.gui.module.js",
-            "three/examples/jsm/loaders/GLTFLoader":"./jsm/loaders/GLTFLoader.js"
-          }
-        }
-    </script>
+    <link rel="stylesheet" href="/css/common.css">
 </head>
 
 <body class="d-flex flex-column vh-100">
@@ -28,12 +16,7 @@
     <%- include('../partials/flash.ejs') %>
         <%- body %>
     <%- include("../partials/footer.ejs") %>
-    <script src="/js/bootstrap.min.js"></script>
-    <script type="module" src="/js/background.js"></script>
-    
-</body>
-
-</html>
+    <script src="/js/bootstrap.min.js"></script> 
 </body>
 
 </html>
