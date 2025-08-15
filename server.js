@@ -13,16 +13,18 @@ const flash = require('connect-flash');
 //ermöglicht session cookie
 const session = require('express-session');
 
-const dburl = process.env.DB_URL || "mongodb://mongo:27017/my-homepage"
+// const dburl = process.env.DB_URL || "mongodb://mongo:27017/my-homepage"
+const dburl = process.env.DB_URL || "mongodb://127.0.0.1:27017/my-homepage";
 mongoose.connect(dburl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true
+    // useFindAndModify: false,
+    // useCreateIndex: true
 })
     .then(() => {
         console.log("Connected to mongodb");
-    }).catch(() => {
+    }).catch((error) => {
+        console.log(error);
         console.log("ERROR - Could not connect to mongodb");
     })
 
