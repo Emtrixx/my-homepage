@@ -30,8 +30,14 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
 // Use helmet to set various security-related HTTP headers
-app.use(helmet());
-// Use compression to gzip responses
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+            "script-src": ["'self'", "'sha256-Hw3rYwlhxGmMum81qBi3sZikFGi8/zV2RWN5Yz5act4='"],
+        },
+    })
+);// Use compression to gzip responses
 app.use(compression());
 app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: true }));
