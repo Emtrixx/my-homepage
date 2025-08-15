@@ -1,6 +1,4 @@
-version: "3"
-
-services: 
+services:
     express-server:
         build: .
         image: homepage
@@ -12,8 +10,10 @@ services:
         depends_on: 
             - mongo
     mongo:
-        image: mongo:4.4.10
+        image: mongo:latest
         restart: unless-stopped
+        ports:
+            - "127.0.0.1:27017:27017"
         networks: 
             - homepage-app
         volumes: 
