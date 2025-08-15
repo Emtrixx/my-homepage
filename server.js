@@ -15,12 +15,7 @@ const session = require('express-session');
 
 // const dburl = process.env.DB_URL || "mongodb://mongo:27017/my-homepage"
 const dburl = process.env.DB_URL || "mongodb://127.0.0.1:27017/my-homepage";
-mongoose.connect(dburl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    // useFindAndModify: false,
-    // useCreateIndex: true
-})
+mongoose.connect(dburl)
     .then(() => {
         console.log("Connected to mongodb");
     }).catch((error) => {

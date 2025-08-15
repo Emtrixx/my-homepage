@@ -3,45 +3,39 @@
   <head>
     <meta charset="utf-8">
     <title>Hello wasm-pack!</title>
+      <style>
+          form {
+              margin: 1em 0;
+          }
+          #brightness-value {
+              font-weight: bold;
+          }
+      </style>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
   </head>
   <body>
     <%- include("../partials/navbar.ejs") %>
-    <div class="container text-center">
-      <canvas class="m-3" id="raytracerwasm-canvas"></canvas>
-      <div>
-        <strong>Controls</strong>
-        <p>
-          WASD - Move <br>
-          Q/E - Brightness
-        </p>
-      </div>
-      <form id="form" class="d-flex flex-column align-items-center justify-content-center" >
-      <div class="col-md-4">
-        <strong>Input</strong><br>
-        <div>
-          <label class="form-label" for="width">Width</label>
-          <input class="form-control" type="number" name="width" id="width">
-        </div>
-        <div>
-          <label class="form-label" for="height">Height</label>
-          <input class="form-control" type="number" name="height" id="height">
-        </div>
-        <div>
-          <label class="form-label" for="centX">Center-X</label>
-          <input class="form-control" type="number" name="centX" id="centX">
-        </div>
-        <div>
-          <label class="form-label" for="centY">Center-Y</label>
-          <input class="form-control" type="number" name="centY" id="centY">
-        </div>
-        <div>
-          <label class="form-label" for="brightness">Brightness</label>
-          <input class="form-control" type="number" name="brightness" id="brightness">
-        </div>
-      </div>
-      <button>Submit</button>
-    </form>
+    <div class="container text-center mt-4">
+        <canvas id="raytracerwasm-canvas"></canvas>
+        <p>Use WASD for flat movement, Q/E for up/down, and Z/X to change brightness.</p>
+        <form action="">
+            <div>
+                <strong>Input</strong><br>
+                <div>
+                    <label for="width">Width</label>
+                    <input type="number" name="width" id="width" value="600">
+                </div>
+                <div>
+                    <label for="height">Height</label>
+                    <input type="number" name="height" id="height" value="400">
+                </div>
+                <div>
+                    <label for="brightness">Brightness</label>
+                    <input type="range" min="0" max="4" value="2" step="0.1" name="brightness" id="brightness">
+                    <span id="brightness-value">1.0</span>
+                </div>
+            </div>
+        </form>
     <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
     <script src="/raytracer/bootstrap.js"></script>
   </div>
