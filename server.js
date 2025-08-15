@@ -5,6 +5,8 @@ if(process.env.NODE_ENV !== "production") {
 
 const express = require('express');
 const app = express();
+const helmet = require('helmet');
+const compression = require('compression');
 const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose')
 const Comment = require('./models/comment');
@@ -27,6 +29,10 @@ app.engine('ejs',ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
+// Use helmet to set various security-related HTTP headers
+app.use(helmet());
+// Use compression to gzip responses
+app.use(compression());
 app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
