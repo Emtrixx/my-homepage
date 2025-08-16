@@ -18,12 +18,18 @@ h2 {
     margin: 2rem 0rem;
 }
 
-.card-text {
-    height: 4rem;
+#projects .card-text {
+    min-height: 4rem;
 }
 
-.card {
-    transition: 300ms all;
+#projects .card {
+    height: 100%;
+}
+
+#projects .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .card-img-top {
