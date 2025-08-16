@@ -34,7 +34,7 @@ app.use(
     helmet.contentSecurityPolicy({
         directives: {
             ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-            "script-src": ["'self'", "'sha256-Hw3rYwlhxGmMum81qBi3sZikFGi8/zV2RWN5Yz5act4='"],
+            "script-src": ["'self'", "'sha256-Hw3rYwlhxGmMum81qBi3sZikFGi8/zV2RWN5Yz5act4='", "'unsafe-eval'"],
         },
     })
 );// Use compression to gzip responses
