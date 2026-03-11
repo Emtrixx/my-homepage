@@ -92,7 +92,7 @@ app.get('/', async(_, res) => {
 })
 
 app.get('/impressum', (_, res) => {
-    res.render('impressum')
+    res.render('impressum', { noindex: true })
 })
 
 app.get('/mandelbrot', (_, res) => {
