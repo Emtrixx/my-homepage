@@ -29,6 +29,17 @@ import Base from '../layouts/Base.astro';
       <canvas id="mandelbrotwasm-canvas" width="600" height="400" class="mx-auto block"></canvas>
     </div>
 
+    <!--
+      FIELD ORDER IS LOAD-BEARING. The prebuilt bundle reads this form by
+      position, not by id:
+
+        width = event.target[0]  height = event.target[1]  centX = event.target[2]
+        centY = event.target[3]  scale  = event.target[4]  iterations = event.target[5]
+
+      Reordering these for looks silently feeds the wrong value into each
+      argument -- a scale of 0 renders a grey box with a black cross. The ids
+      still have to match too, because the keyboard handler looks those up.
+    -->
     <form id="form" class="mt-8 grid max-w-2xl grid-cols-2 gap-4 sm:grid-cols-3">
       <label class="flex flex-col gap-1">
         <span class="eyebrow">Width</span>
@@ -37,10 +48,6 @@ import Base from '../layouts/Base.astro';
       <label class="flex flex-col gap-1">
         <span class="eyebrow">Height</span>
         <input id="height" name="height" type="number" value="400" class="field" />
-      </label>
-      <label class="flex flex-col gap-1">
-        <span class="eyebrow">Iterations</span>
-        <input id="iterations" name="iterations" type="number" value="100" class="field" />
       </label>
       <label class="flex flex-col gap-1">
         <span class="eyebrow">Center X</span>
@@ -53,6 +60,10 @@ import Base from '../layouts/Base.astro';
       <label class="flex flex-col gap-1">
         <span class="eyebrow">Scale</span>
         <input id="scale" name="scale" type="number" step="any" value="1" class="field" />
+      </label>
+      <label class="flex flex-col gap-1">
+        <span class="eyebrow">Iterations</span>
+        <input id="iterations" name="iterations" type="number" value="100" class="field" />
       </label>
 
       <button
