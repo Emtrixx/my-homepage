@@ -14,9 +14,15 @@
 @theme {
   --color-void: #0a0e1a;
   --color-deep: #151b2e;
-  --color-edge: #232a42;
-  --color-ink: #e8e4da;
-  --color-dust: #8a8578;
+  --color-edge: #2b3350;
+
+  /* The moon sits at a golden-ratio point, not in a gutter, so text crosses it
+     for the whole scroll. Both text tones are set so they clear 4.5:1 against
+     the moon's peak luminance (~0.07), which is what caps how bright the moon
+     is allowed to be. See the note in background.ts. */
+  --color-ink: #f2efe7; /* L 0.864 -> 7.6:1 over the moon, 16.8:1 over the void */
+  --color-dust: #c2bcae; /* L 0.505 -> 4.6:1 over the moon, 10.2:1 over the void */
+
   --color-rust: #c4553a;
   --color-rust-lift: #dd6a4d;
   --color-phosphor: #7fb0a3;

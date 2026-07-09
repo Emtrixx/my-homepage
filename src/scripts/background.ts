@@ -96,13 +96,17 @@ function init(canvas: HTMLCanvasElement) {
   moon.position.z = MOON_Z;
   moonScene.add(moon);
 
+  // Intensity is set by a contrast budget, not by taste: the moon's peak
+  // luminance must stay under ~0.07 so body copy crossing it holds 4.5:1.
+  // Measured peak at full phase is ~0.065.
+  //
   // The phase only reads if the dark limb is genuinely dark. The old scene had
   // a full-white AmbientLight, which is why the moon looked flat. This faint
   // blue fill is earthshine — enough to keep the unlit limb from being a hole.
-  const sun = new DirectionalLight(0xfff4e6, 2.6);
+  const sun = new DirectionalLight(0xfff4e6, 0.23);
   const sunTarget = new Object3D(); // three needs the target in the scene graph
   sun.target = sunTarget;
-  moonScene.add(sun, sunTarget, new AmbientLight(0x2a3350, 0.15));
+  moonScene.add(sun, sunTarget, new AmbientLight(0x2a3350, 0.06));
 
   // --- State ---------------------------------------------------------------
   const pointerTarget = new Vector2(0, 0);
@@ -115,16 +119,17 @@ function init(canvas: HTMLCanvasElement) {
   let lastFrame = 0; // rAF timestamp, ms
 
   /**
-   * The moon lives in the right-hand gutter — the space between the text column
-   * and the viewport edge. It is drawn into a *fixed* canvas, so it occupies one
-   * screen position for the whole scroll; anything it overlaps, it overlaps
-   * forever. A full moon behind body copy is unreadable, so the moon is sized to
-   * the gutter and hidden outright when there isn't one.
+   * The moon is anchored to the upper-right golden-ratio point of the viewport:
+   * 0.618 across, 0.382 down. The canvas is fixed, so it holds that one screen
+   * position for the whole scroll and the page's text crosses it continuously.
    *
-   * Container mirrors the pages: `max-w-5xl` (1024px) centred, px-5 / sm:px-8.
+   * That is only readable because the moon is lit to a peak relative luminance
+   * of about 0.07. --color-dust (L 0.505) clears 4.5:1 against it; the previous
+   * dust grey (L 0.235) would have needed the moon down at L 0.013 to pass,
+   * which is no moon at all. Brightening the moon means brightening the text.
    */
-  const CONTENT_MAX = 1024;
-  const MIN_RADIUS_PX = 62; // below this the moon reads as a smudge, so drop it
+  const PHI_X = 0.618;
+  const PHI_Y = 0.382;
 
   function layout() {
     const w = window.innerWidth;
@@ -140,22 +145,12 @@ function init(canvas: HTMLCanvasElement) {
     const dist = camera.position.z - MOON_Z;
     const pxPerWorld = h / 2 / (Math.tan((camera.fov / 2) * (Math.PI / 180)) * dist);
 
-    const pad = w < 640 ? 20 : 32;
-    const marginRight = (w - Math.min(CONTENT_MAX, w)) / 2 + pad;
+    // Scale to the short edge so the moon keeps its proportion of the frame on
+    // any aspect ratio, phones included.
+    const radiusPx = Math.min(w, h) * 0.16;
 
-    // Allow ~20% of the disc to bleed past the right edge. The 1.9 divisor (not
-    // 1.8) leaves slack for the fact that an off-axis sphere projects to an
-    // ellipse slightly larger than its on-axis radius.
-    const radiusPx = Math.min((marginRight - 24) / 1.9, 165);
-
-    if (radiusPx < MIN_RADIUS_PX) {
-      moon.visible = false;
-      return;
-    }
-    moon.visible = true;
-
-    const cx = w - radiusPx * 0.8 - 8;
-    const cy = Math.min(Math.max(h * 0.3, 170), 340);
+    const cx = w * PHI_X;
+    const cy = h * PHI_Y;
 
     moon.position.set((cx - w / 2) / pxPerWorld, (h / 2 - cy) / pxPerWorld, MOON_Z);
     moon.scale.setScalar(radiusPx / (MOON_R * pxPerWorld));
