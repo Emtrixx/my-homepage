@@ -8,12 +8,7 @@ import { featured, secondary } from '../data/projects';
 const stack: { group: string; items: { name: string; core?: boolean }[] }[] = [
   {
     group: 'Machine learning',
-    items: [
-      { name: 'Python', core: true },
-      { name: 'PyTorch', core: true },
-      { name: 'NumPy', core: true },
-      { name: 'TensorFlow' },
-    ],
+    items: [{ name: 'Python', core: true }, { name: 'PyTorch', core: true }, { name: 'TensorFlow' }],
   },
   {
     group: 'Web',
@@ -21,6 +16,7 @@ const stack: { group: string; items: { name: string; core?: boolean }[] }[] = [
       { name: 'TypeScript', core: true },
       { name: 'JavaScript', core: true },
       { name: 'Node.js', core: true },
+      { name: 'Express' },
       { name: 'Vue.js' },
       { name: 'React' },
       { name: 'Three.js' },
@@ -41,7 +37,7 @@ const stack: { group: string; items: { name: string; core?: boolean }[] }[] = [
   },
   {
     group: 'Data',
-    items: [{ name: 'PostgreSQL' }, { name: 'MongoDB' }],
+    items: [{ name: 'MongoDB' }, { name: 'SQL' }],
   },
   {
     group: 'Also',
@@ -67,47 +63,37 @@ const stack: { group: string; items: { name: string; core?: boolean }[] }[] = [
     </h1>
 
     <p class="lede mt-8 max-w-xl">
-      I have spent my working life building and shipping web systems. I am now doing a computer
-      science master&rsquo;s focused on machine learning, and moving there professionally.
+      Web developer from Hamburg. I&rsquo;m doing a computer science master&rsquo;s focused on
+      machine learning, and moving into the field professionally.
     </p>
 
     <div class="mt-9 flex flex-wrap gap-x-8 gap-y-3">
-      <a href="#work" class="prose-link font-mono text-xs tracking-[0.08em] uppercase">See the work</a>
+      <a href="#projects" class="prose-link font-mono text-xs tracking-[0.08em] uppercase">Projects</a>
       <a href="mailto:contact@jesseguenzl.com" class="prose-link font-mono text-xs tracking-[0.08em] uppercase">
         contact@jesseguenzl.com
       </a>
     </div>
   </section>
 
-  <!-- Now -->
-  <section id="now" class="mx-auto max-w-5xl scroll-mt-16 px-5 py-20 sm:px-8">
-    <p class="eyebrow">Now</p>
-    <h2 class="mt-3" style="font-size: var(--text-section);">Where I am</h2>
+  <section id="about" class="mx-auto max-w-5xl scroll-mt-16 px-5 py-20 sm:px-8">
+    <h2 style="font-size: var(--text-section);">About</h2>
 
     <div class="mt-6 max-w-2xl space-y-4 text-lg leading-relaxed text-dust">
       <p>
-        I read computer science at the Hamburg University of Applied Sciences, where my master&rsquo;s
-        work centres on machine learning. Before that I spent my time on the parts of software most
-        people never see: the services behind the page, the cluster underneath them, and occasionally
-        the firmware underneath that.
+        I study computer science at the Hamburg University of Applied Sciences, where my
+        master&rsquo;s focuses on machine learning. Most of my work so far has been backend and
+        infrastructure: the services behind the page, the clusters they run on, and occasionally the
+        firmware underneath.
       </p>
       <p>
-        What I like has not really changed. I would rather work out why a model is confidently wrong,
-        or why a scheduler drops a frame, than argue about a border radius. The projects below are
-        mostly me chasing that: <span class="text-ink">a classifier that has to run on a phone in a
-        kitchen</span>, <span class="text-ink">a raytracer that has to finish before the next frame</span>,
-        <span class="text-ink">a cocktail machine that has to not overflow the glass</span>.
-      </p>
-      <p>
-        Off-screen I am usually somewhere in a science fiction novel. It shows.
+        I&rsquo;m happiest on the parts of a system that are hard to get right — model behaviour,
+        performance, correctness — and I&rsquo;m looking to work on machine learning full time.
       </p>
     </div>
   </section>
 
-  <!-- Work -->
-  <section id="work" class="mx-auto max-w-5xl scroll-mt-16 px-5 py-20 sm:px-8">
-    <p class="eyebrow">Work</p>
-    <h2 class="mt-3" style="font-size: var(--text-section);">Things I built</h2>
+  <section id="projects" class="mx-auto max-w-5xl scroll-mt-16 px-5 py-20 sm:px-8">
+    <h2 style="font-size: var(--text-section);">Projects</h2>
 
     <div class="mt-14 space-y-20">
       {featured.map((project, i) => <FeaturedProject project={project} flip={i % 2 === 1} />)}
@@ -126,10 +112,9 @@ const stack: { group: string; items: { name: string; core?: boolean }[] }[] = [
     </p>
   </section>
 
-  <!-- Stack. No percentages: they measure nothing and invite the wrong question. -->
-  <section id="stack" class="mx-auto max-w-5xl scroll-mt-16 px-5 py-20 sm:px-8">
-    <p class="eyebrow">Stack</p>
-    <h2 class="mt-3" style="font-size: var(--text-section);">What I work in</h2>
+  <!-- No percentages: they measure nothing and invite the wrong question. -->
+  <section id="skills" class="mx-auto max-w-5xl scroll-mt-16 px-5 py-20 sm:px-8">
+    <h2 style="font-size: var(--text-section);">Skills</h2>
 
     <p class="mt-4 font-mono text-xs text-dust">
       <span class="text-ink">Solid</span> — daily. <span class="text-dust">Muted</span> — shipped at least once.
@@ -151,13 +136,12 @@ const stack: { group: string; items: { name: string; core?: boolean }[] }[] = [
     </div>
   </section>
 
-  <!-- Contact. The moon is full by the time you arrive here. -->
+  <!-- The moon is full by the time you arrive here. -->
   <section id="contact" class="mx-auto max-w-5xl scroll-mt-16 px-5 py-20 pb-32 sm:px-8">
-    <p class="eyebrow">Contact</p>
-    <h2 class="mt-3" style="font-size: var(--text-section);">Say hello</h2>
+    <h2 style="font-size: var(--text-section);">Contact</h2>
 
     <p class="lede mt-5 max-w-lg text-dust">
-      I am open to machine learning roles, and to anything with a hard problem underneath it.
+      Open to machine learning roles. Email is the best way to reach me.
     </p>
 
     <a
