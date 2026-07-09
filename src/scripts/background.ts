@@ -165,20 +165,21 @@ function init(canvas: HTMLCanvasElement) {
    * The signature. Illuminated fraction is (1 + cos theta) / 2, where theta is
    * the angle between the moon→sun and moon→camera vectors.
    *
-   *   theta = 2.2rad  ->  fraction 0.21  (crescent, at the hero)
-   *   theta = 0       ->  fraction 1.00  (full, at the contact section)
+   * Scrolling the page walks one complete lunation:
    *
-   * The moon waxes as you descend. It is a progress indicator that had to be a
-   * moon.
+   *   progress 0.0  ->  theta 0      ->  fraction 1.00  (full, at the hero)
+   *   progress 0.5  ->  theta pi     ->  fraction 0.00  (new, mid-page)
+   *   progress 1.0  ->  theta 2pi    ->  fraction 1.00  (full, at contact)
+   *
+   * sin(theta) changes sign past the new moon, so the lit limb swaps from one
+   * side to the other on the way back up — which is what a real waning-then-
+   * waxing cycle does.
    *
    * The light is built in the moon→camera frame rather than in world space.
-   * The moon sits far off-axis in the right gutter, so moon→camera is nowhere
-   * near +Z; setting the sun by a world-space angle would leave the hero at
-   * ~54% lit and "full" at ~82%. Constructing the direction from the basis
-   * below makes the angle *be* theta, whatever the moon's screen position.
-   *
-   * -right tilts the lit limb toward the page, not toward the viewport edge
-   * that crops it.
+   * The moon sits well off-axis, so moon→camera is nowhere near +Z; setting the
+   * sun by a world-space angle would make the fraction wrong at both ends.
+   * Constructing the direction from the basis below makes the angle *be* theta,
+   * whatever the moon's screen position.
    */
   const toCamera = new Vector3();
   const right = new Vector3();
@@ -188,7 +189,7 @@ function init(canvas: HTMLCanvasElement) {
   const TILT = 0.35; // radians the light sits above the moon's equator
 
   function applyPhase(progress: number) {
-    const theta = 2.2 * (1 - progress);
+    const theta = Math.PI * 2 * progress;
 
     toCamera.copy(camera.position).sub(moon.position).normalize();
     right.crossVectors(WORLD_UP, toCamera).normalize();
