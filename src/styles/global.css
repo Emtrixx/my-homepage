@@ -1,0 +1,154 @@
+/* Tailwind's automatic content detection consults .gitignore to decide what to
+   scan. Docker builds exclude .git, so it scanned different files there and
+   emitted different CSS than a local build. Pin the sources explicitly and the
+   output is identical everywhere. */
+@import 'tailwindcss' source(none);
+@source '../**/*.{astro,html,ts,js}';
+
+/* ---------------------------------------------------------------------------
+   Palette: 70s/80s sci-fi paperback — flat spot colors on warm-tinted stock.
+   Deliberately not near-black + neon accent.
+   --rust carries emphasis. --phosphor marks interaction. Never both on one
+   element; that is the rule the whole page hangs on.
+--------------------------------------------------------------------------- */
+@theme {
+  --color-void: #0a0e1a;
+  --color-deep: #151b2e;
+  --color-edge: #232a42;
+  --color-ink: #e8e4da;
+  --color-dust: #8a8578;
+  --color-rust: #c4553a;
+  --color-rust-lift: #dd6a4d;
+  --color-phosphor: #7fb0a3;
+
+  /* Aliased onto the families astro:fonts defines (see astro.config.mjs).
+     Anybody carries a width axis — that axis is the personality. The hero runs
+     wide via font-stretch; everything else sits near normal. */
+  --font-display: var(--font-anybody);
+  --font-body: var(--font-newsreader);
+  --font-mono: var(--font-plex);
+
+  --text-eyebrow: 0.6875rem;
+  --text-hero: clamp(2.75rem, 9vw, 7.5rem);
+  --text-section: clamp(1.75rem, 4vw, 2.75rem);
+  --text-lede: clamp(1.125rem, 2vw, 1.5rem);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-void);
+    /* The fixed canvas paints the background; this only shows during load
+       and past the scroll boundaries on overscroll. */
+    color-scheme: dark;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-weight: 380;
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--color-rust);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-phosphor);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  /* Only the shader canvas is fixed behind everything. */
+  canvas#bg {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    display: block;
+  }
+}
+
+@layer components {
+  /* Mono eyebrow. Used for section labels and project metadata — never for
+     body copy, never decoratively. */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-eyebrow);
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-dust);
+  }
+
+  .lede {
+    font-size: var(--text-lede);
+    line-height: 1.55;
+    color: color-mix(in oklab, var(--color-ink) 88%, transparent);
+  }
+
+  /* Links in prose: phosphor underline that thickens on hover.
+     No color change — the underline does the work. */
+  .prose-link {
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-decoration-color: var(--color-phosphor);
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+    transition: text-decoration-thickness 160ms var(--ease-out-soft);
+  }
+  .prose-link:hover {
+    text-decoration-thickness: 2px;
+  }
+
+  /* Flat surface. No blur, no glow, no shadow — 2px radius only.
+     This is the explicit rejection of the glassmorphism card. */
+  .surface {
+    background-color: color-mix(in oklab, var(--color-deep) 82%, transparent);
+    border: 1px solid var(--color-edge);
+    border-radius: 2px;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.04em;
+    color: var(--color-dust);
+    border: 1px solid var(--color-edge);
+    border-radius: 2px;
+    padding: 0.1rem 0.4rem;
+    white-space: nowrap;
+  }
+}

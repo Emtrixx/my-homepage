@@ -1,0 +1,89 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Mandelbrot — Jesse Günzl"
+  description="Explore the Mandelbrot set in the browser. Written in Rust, compiled to WebAssembly."
+>
+  <!--
+    The prebuilt bundle is webpack 4 with `__webpack_require__.p = ""`, so it
+    fetches `0.bootstrap.js` and its `.module.wasm` relative to the *document*
+    URL. `trailingSlash: 'always'` gives us /mandelbrot/, which resolves them
+    correctly; this <base> pins it even if that config ever changes. The bundle
+    exposes no __webpack_public_path__ hook, so <base> is the only override.
+  -->
+  <base href="/mandelbrot/" slot="head" />
+
+  <div class="mx-auto max-w-5xl px-5 py-14 sm:px-8">
+    <p class="eyebrow">Rust · WebAssembly</p>
+    <h1 class="mt-3" style="font-size: var(--text-section);">Mandelbrot</h1>
+
+    <p class="mt-4 max-w-xl leading-relaxed text-dust">
+      Move with <kbd class="tag">W</kbd> <kbd class="tag">A</kbd> <kbd class="tag">S</kbd>
+      <kbd class="tag">D</kbd>, zoom with <kbd class="tag">Q</kbd> <kbd class="tag">E</kbd>. Or set
+      the parameters directly below.
+    </p>
+
+    <div class="surface mt-8 overflow-x-auto p-3">
+      <canvas id="mandelbrotwasm-canvas" width="600" height="400" class="mx-auto block"></canvas>
+    </div>
+
+    <form id="form" class="mt-8 grid max-w-2xl grid-cols-2 gap-4 sm:grid-cols-3">
+      <label class="flex flex-col gap-1">
+        <span class="eyebrow">Width</span>
+        <input id="width" name="width" type="number" value="600" class="field" />
+      </label>
+      <label class="flex flex-col gap-1">
+        <span class="eyebrow">Height</span>
+        <input id="height" name="height" type="number" value="400" class="field" />
+      </label>
+      <label class="flex flex-col gap-1">
+        <span class="eyebrow">Iterations</span>
+        <input id="iterations" name="iterations" type="number" value="100" class="field" />
+      </label>
+      <label class="flex flex-col gap-1">
+        <span class="eyebrow">Center X</span>
+        <input id="centX" name="centX" type="number" step="any" value="-0.5" class="field" />
+      </label>
+      <label class="flex flex-col gap-1">
+        <span class="eyebrow">Center Y</span>
+        <input id="centY" name="centY" type="number" step="any" value="0" class="field" />
+      </label>
+      <label class="flex flex-col gap-1">
+        <span class="eyebrow">Scale</span>
+        <input id="scale" name="scale" type="number" step="any" value="1" class="field" />
+      </label>
+
+      <button
+        type="submit"
+        class="col-span-2 mt-2 justify-self-start border border-edge bg-deep px-5 py-2 font-mono text-xs uppercase tracking-[0.12em] text-ink transition-colors hover:border-phosphor hover:text-phosphor sm:col-span-3"
+      >
+        Render
+      </button>
+    </form>
+
+    <p class="mt-10">
+      <a class="prose-link font-mono text-xs uppercase tracking-[0.08em]" href="https://github.com/Emtrixx/mandelbrot_wasm" rel="noreferrer" target="_blank">
+        Source
+      </a>
+    </p>
+  </div>
+
+  <script is:inline src="/mandelbrot/bootstrap.js"></script>
+</Base>
+
+<style>
+  .field {
+    background-color: var(--color-void);
+    border: 1px solid var(--color-edge);
+    border-radius: 2px;
+    padding: 0.4rem 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--color-ink);
+  }
+  .field:focus {
+    border-color: var(--color-phosphor);
+  }
+</style>

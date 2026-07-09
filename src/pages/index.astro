@@ -1,0 +1,171 @@
+---
+import Base from '../layouts/Base.astro';
+import FeaturedProject from '../components/FeaturedProject.astro';
+import SecondaryProject from '../components/SecondaryProject.astro';
+import { featured, secondary } from '../data/projects';
+
+/** `core` = reach for it daily. Everything else has shipped at least once. */
+const stack: { group: string; items: { name: string; core?: boolean }[] }[] = [
+  {
+    group: 'Machine learning',
+    items: [
+      { name: 'Python', core: true },
+      { name: 'PyTorch', core: true },
+      { name: 'NumPy', core: true },
+      { name: 'TensorFlow' },
+    ],
+  },
+  {
+    group: 'Web',
+    items: [
+      { name: 'TypeScript', core: true },
+      { name: 'JavaScript', core: true },
+      { name: 'Node.js', core: true },
+      { name: 'Vue.js' },
+      { name: 'React' },
+      { name: 'Three.js' },
+    ],
+  },
+  {
+    group: 'Systems',
+    items: [{ name: 'Rust' }, { name: 'C' }, { name: 'WebAssembly' }, { name: 'FreeRTOS' }],
+  },
+  {
+    group: 'Infrastructure',
+    items: [
+      { name: 'Linux', core: true },
+      { name: 'Docker', core: true },
+      { name: 'Kubernetes' },
+      { name: 'GitHub Actions' },
+    ],
+  },
+  {
+    group: 'Data',
+    items: [{ name: 'PostgreSQL' }, { name: 'MongoDB' }],
+  },
+  {
+    group: 'Also',
+    items: [{ name: 'Kotlin' }, { name: 'Java' }],
+  },
+];
+---
+
+<Base title="Jesse Günzl" background={true}>
+  <!-- Hero. The nebula does the talking; the type stays out of its way. -->
+  <section
+    id="hero"
+    class="mx-auto flex min-h-[78dvh] max-w-5xl flex-col justify-center px-5 py-20 sm:px-8"
+  >
+    <p class="eyebrow">Hamburg, Germany</p>
+
+    <!-- The one wide setting on the site. Anybody's wdth axis runs 50–150. -->
+    <h1
+      class="mt-4 leading-[0.86] text-ink"
+      style="font-size: var(--text-hero); font-stretch: 112%; font-weight: 800;"
+    >
+      Jesse<br />Günzl
+    </h1>
+
+    <p class="lede mt-8 max-w-xl">
+      I have spent my working life building and shipping web systems. I am now doing a computer
+      science master&rsquo;s focused on machine learning, and moving there professionally.
+    </p>
+
+    <div class="mt-9 flex flex-wrap gap-x-8 gap-y-3">
+      <a href="#work" class="prose-link font-mono text-xs tracking-[0.08em] uppercase">See the work</a>
+      <a href="mailto:contact@jesseguenzl.com" class="prose-link font-mono text-xs tracking-[0.08em] uppercase">
+        contact@jesseguenzl.com
+      </a>
+    </div>
+  </section>
+
+  <!-- Now -->
+  <section id="now" class="mx-auto max-w-5xl scroll-mt-16 px-5 py-20 sm:px-8">
+    <p class="eyebrow">Now</p>
+    <h2 class="mt-3" style="font-size: var(--text-section);">Where I am</h2>
+
+    <div class="mt-6 max-w-2xl space-y-4 text-lg leading-relaxed text-dust">
+      <p>
+        I read computer science at the Hamburg University of Applied Sciences, where my master&rsquo;s
+        work centres on machine learning. Before that I spent my time on the parts of software most
+        people never see: the services behind the page, the cluster underneath them, and occasionally
+        the firmware underneath that.
+      </p>
+      <p>
+        What I like has not really changed. I would rather work out why a model is confidently wrong,
+        or why a scheduler drops a frame, than argue about a border radius. The projects below are
+        mostly me chasing that: <span class="text-ink">a classifier that has to run on a phone in a
+        kitchen</span>, <span class="text-ink">a raytracer that has to finish before the next frame</span>,
+        <span class="text-ink">a cocktail machine that has to not overflow the glass</span>.
+      </p>
+      <p>
+        Off-screen I am usually somewhere in a science fiction novel. It shows.
+      </p>
+    </div>
+  </section>
+
+  <!-- Work -->
+  <section id="work" class="mx-auto max-w-5xl scroll-mt-16 px-5 py-20 sm:px-8">
+    <p class="eyebrow">Work</p>
+    <h2 class="mt-3" style="font-size: var(--text-section);">Things I built</h2>
+
+    <div class="mt-14 space-y-20">
+      {featured.map((project, i) => <FeaturedProject project={project} flip={i % 2 === 1} />)}
+    </div>
+
+    <div class="mt-24">
+      <p class="eyebrow">Also</p>
+      <div class="mt-4">
+        {secondary.map((project) => <SecondaryProject project={project} />)}
+      </div>
+    </div>
+
+    <p class="mt-10 text-dust">
+      More on
+      <a class="prose-link" href="https://github.com/Emtrixx" rel="noreferrer" target="_blank">GitHub</a>.
+    </p>
+  </section>
+
+  <!-- Stack. No percentages: they measure nothing and invite the wrong question. -->
+  <section id="stack" class="mx-auto max-w-5xl scroll-mt-16 px-5 py-20 sm:px-8">
+    <p class="eyebrow">Stack</p>
+    <h2 class="mt-3" style="font-size: var(--text-section);">What I work in</h2>
+
+    <p class="mt-4 font-mono text-xs text-dust">
+      <span class="text-ink">Solid</span> — daily. <span class="text-dust">Muted</span> — shipped at least once.
+    </p>
+
+    <div class="mt-10 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        stack.map((column) => (
+          <div>
+            <h3 class="eyebrow border-b border-edge pb-2 text-dust">{column.group}</h3>
+            <ul class="mt-3 space-y-1.5">
+              {column.items.map((item) => (
+                <li class={item.core ? 'text-lg text-ink' : 'text-lg text-dust'}>{item.name}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Contact. The moon is full by the time you arrive here. -->
+  <section id="contact" class="mx-auto max-w-5xl scroll-mt-16 px-5 py-20 pb-32 sm:px-8">
+    <p class="eyebrow">Contact</p>
+    <h2 class="mt-3" style="font-size: var(--text-section);">Say hello</h2>
+
+    <p class="lede mt-5 max-w-lg text-dust">
+      I am open to machine learning roles, and to anything with a hard problem underneath it.
+    </p>
+
+    <a
+      href="mailto:contact@jesseguenzl.com"
+      style="font-weight: 600;"
+      class="mt-8 inline-block font-display text-2xl text-ink underline decoration-rust decoration-2 underline-offset-[6px] transition-colors duration-150 hover:text-rust-lift sm:text-4xl"
+    >
+      contact@jesseguenzl.com
+    </a>
+  </section>
+</Base>

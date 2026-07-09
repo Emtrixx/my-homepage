@@ -1,13 +1,19 @@
-FROM node:22-alpine
+FROM node:22-alpine AS build
 
-# Install qpdf from the apk repository
-RUN apk add --no-cache qpdf
+WORKDIR /app
 
-WORKDIR /home/node/app
-
-COPY package*.json ./
-RUN npm install
+COPY package.json package-lock.json ./
+RUN npm ci
 
 COPY . .
+RUN npm run build
 
-CMD [ "npm", "start" ]
+
+FROM nginx:alpine
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Not under conf.d/: everything matching conf.d/*.conf is included at http level.
+COPY security-headers.conf /etc/nginx/security-headers.conf
+COPY --from=build /app/dist /usr/share/nginx/html
+
+EXPOSE 80

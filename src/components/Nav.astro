@@ -1,0 +1,34 @@
+---
+const links = [
+  { href: '/#now', label: 'Now' },
+  { href: '/#work', label: 'Work' },
+  { href: '/#stack', label: 'Stack' },
+  { href: '/#contact', label: 'Contact' },
+];
+---
+
+<header class="sticky top-0 z-10 border-b border-edge/60 bg-void/70 backdrop-blur-[2px]">
+  <nav
+    aria-label="Primary"
+    class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-5 py-3 sm:px-8"
+  >
+    <a href="/" class="font-mono text-xs tracking-[0.18em] uppercase text-ink hover:text-phosphor">
+      Jesse Günzl
+    </a>
+
+    <ul class="flex items-center gap-4 sm:gap-6">
+      {
+        links.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="eyebrow transition-colors duration-150 hover:text-ink"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>

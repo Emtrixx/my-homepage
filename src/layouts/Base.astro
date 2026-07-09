@@ -1,0 +1,52 @@
+---
+import { Font } from 'astro:assets';
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+  /** Home draws the shader canvas; inner pages sit on the flat void. */
+  background?: boolean;
+}
+
+const {
+  title,
+  description = 'Jesse Günzl — engineer in Hamburg. Web systems, Rust and WebAssembly, and a master’s in machine learning.',
+  noindex = false,
+  background = false,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="icon" href="/images/moon.avif" />
+    <meta name="theme-color" content="#0A0E1A" />
+
+    <Font cssVariable="--font-anybody" preload />
+    <Font cssVariable="--font-newsreader" preload />
+    <Font cssVariable="--font-plex" />
+
+    <slot name="head" />
+  </head>
+
+  <body class="min-h-dvh flex flex-col">
+    {background && <canvas id="bg" aria-hidden="true"></canvas>}
+
+    <Nav />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+
+    {background && <script>import '../scripts/background.ts';</script>}
+  </body>
+</html>

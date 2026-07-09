@@ -1,31 +1,14 @@
 services:
-    express-server:
+    homepage:
         build: .
         image: homepage
         restart: unless-stopped
-        ports: 
-            - "127.0.0.1:3001:3000"
-        environment:
-          - DB_URL=mongodb://mongo:27017/my-homepage
-          - NODE_ENV=production
+        # Same host port as before, so the existing reverse proxy needs no change.
+        ports:
+            - "127.0.0.1:3001:80"
         networks:
             - homepage-app
-        depends_on: 
-            - mongo
-    mongo:
-        image: mongo:latest
-        restart: unless-stopped
-        ports:
-            - "127.0.0.1:27017:27017"
-        networks: 
-            - homepage-app
-        volumes: 
-            - mongo-data:/data/db
 
-networks: 
+networks:
     homepage-app:
         driver: bridge
-
-volumes: 
-    mongo-data:
-        driver: local

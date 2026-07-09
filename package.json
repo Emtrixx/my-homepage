@@ -1,29 +1,25 @@
 {
   "name": "my-homepage",
-  "version": "1.0.0",
-  "description": "homepage for my webserver",
-  "main": "server.js",
+  "version": "2.0.0",
+  "description": "Personal site of Jesse Günzl",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js",
-    "start": "NODE_ENV=production node server.js",
-    "build": "terser public/js/main.js -o public/dist/main.min.js -c -m"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
   },
   "author": "Jesse Günzl",
   "license": "ISC",
   "dependencies": {
-    "compression": "^1.8.1",
-    "connect-flash": "^0.1.1",
-    "dotenv": "^17.2.1",
-    "ejs": "3.1.10",
-    "ejs-mate": "^4.0.0",
-    "express": "4.21.2",
-    "express-session": "^1.18.2",
-    "helmet": "^8.1.0",
-    "mongoose": "8.17.1",
-    "multer": "2.1.1",
-    "passport": "0.7.0",
-    "passport-local-mongoose": "^8.0.0",
-    "three": "^0.179.1"
+    "astro": "^7.0.7",
+    "three": "^0.185.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@tailwindcss/vite": "^4.3.2",
+    "@types/three": "^0.185.0",
+    "tailwindcss": "^4.3.2",
+    "typescript": "^6.0.3"
   }
 }

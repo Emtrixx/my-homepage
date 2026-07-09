@@ -1,0 +1,41 @@
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run build
+      - name: Check the WASM demos survived the build
+        run: |
+          set -e
+          test -f dist/mandelbrot/index.html
+          test -f dist/mandelbrot/0.bootstrap.js
+          test -f dist/mandelbrot/a12e5bd04e19cdf3c692.module.wasm
+          test -f dist/raytracer/index.html
+          test -f dist/raytracer/60a1e7abaae6e1b0a855.wasm
+          # The bundles resolve chunks against the document URL, so these pages
+          # must exist as directories with a trailing slash.
+          grep -q 'base href="/mandelbrot/"' dist/mandelbrot/index.html
+
+  deploy:
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rebuild and restart the container
+        run: |
+          docker compose down
+          docker compose up -d --build
