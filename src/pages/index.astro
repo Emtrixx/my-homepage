@@ -104,9 +104,10 @@ const stack: { group: string; items: { name: string; core?: boolean }[] }[] = [
       </div>
     </div>
 
+    {/* Keep the text and link on one line — Astro strips the trailing whitespace
+        of a text node that ends in a newline before an element, gluing them. */}
     <p class="mt-10 text-dust">
-      More on
-      <a class="prose-link" href="https://github.com/Emtrixx" rel="noreferrer" target="_blank">GitHub</a>.
+      More on <a class="prose-link" href="https://github.com/Emtrixx" rel="noreferrer" target="_blank">GitHub</a>.
     </p>
   </section>
 
