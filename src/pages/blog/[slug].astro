@@ -1,0 +1,71 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'short', day: '2-digit' }).format(date);
+---
+
+<Base title={`${post.data.title} — Jesse Günzl`} description={post.data.description}>
+  <article class="mx-auto max-w-3xl px-5 py-16 sm:px-8">
+    <header>
+      <p class="eyebrow">
+        <time datetime={post.data.pubDate.toISOString().slice(0, 10)}>
+          {formatDate(post.data.pubDate)}
+        </time>
+      </p>
+      <h1 class="mt-3" style="font-size: var(--text-section);">{post.data.title}</h1>
+      {
+        post.data.tags.length > 0 && (
+          <ul class="mt-4 flex flex-wrap gap-2">
+            {post.data.tags.map((tag) => (
+              <li class="tag">{tag}</li>
+            ))}
+          </ul>
+        )
+      }
+    </header>
+
+    <div class="prose mt-8">
+      <Content />
+    </div>
+
+    <p class="mt-12">
+      <a href="/blog/" class="prose-link font-mono text-xs tracking-[0.18em] uppercase">
+        ← All posts
+      </a>
+    </p>
+  </article>
+
+  {post.data.doom && <script>import '../../scripts/doom-trigger.ts';</script>}
+</Base>
+
+<style is:global>
+  /* The trapdoor: a block cursor ending the doom post's last sentence.
+     Idle it blinks in dust; hover marks it as interactive (phosphor rule).
+     Scoped by id, so this is inert on every other post. The global
+     reduced-motion rule already stops the blink. */
+  #trapdoor {
+    color: var(--color-dust);
+    animation: trapdoor-blink 1.2s steps(1) infinite;
+    user-select: none;
+  }
+  #trapdoor:hover {
+    color: var(--color-phosphor);
+    animation: none;
+    cursor: pointer;
+  }
+  @keyframes trapdoor-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+</style>

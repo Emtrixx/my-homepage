@@ -14,6 +14,12 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
 
+  markdown: {
+    // tokyo-night's background (#1a1b26) sits closest to --color-deep; the
+    // .prose pre rule overrides the bg with the actual token anyway.
+    shikiConfig: { theme: 'tokyo-night' },
+  },
+
   // These cssVariables are deliberately NOT --font-display/-body/-mono: those
   // names belong to Tailwind's @theme, and two :root declarations of the same
   // custom property would silently fight in the cascade. global.css aliases
