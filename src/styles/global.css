@@ -220,6 +220,35 @@
     margin: 2.5rem 0;
     border-color: var(--color-edge);
   }
+  /* Images and tables follow the flat-surface rule: an edge, a 2px radius,
+     nothing else. Wide tables scroll in place rather than widening the page. */
+  .prose img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-top: 1.5rem;
+    border: 1px solid var(--color-edge);
+    border-radius: 2px;
+  }
+  .prose table {
+    display: block;
+    overflow-x: auto;
+    margin-top: 1rem;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    color: var(--color-dust);
+  }
+  .prose th,
+  .prose td {
+    border: 1px solid var(--color-edge);
+    padding: 0.4rem 0.75rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  .prose th {
+    color: var(--color-ink);
+    font-weight: 500;
+  }
 
   .tag {
     font-family: var(--font-mono);

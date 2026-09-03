@@ -25,7 +25,10 @@ export const featured: Project[] = [
     image: '/images/splat-fighter.jpg',
     alt: 'Two custom fighters mid-match in a Gaussian-splat scan of a garden courtyard',
     tags: ['TypeScript', 'Three.js', 'Gaussian Splatting', 'WebRTC'],
-    links: [{ label: 'Play', href: 'https://splat-fighter.jesseguenzl.com' }],
+    links: [
+      { label: 'Play', href: 'https://splat-fighter.jesseguenzl.com' },
+      { label: 'Write-up', href: '/blog/splat-fighter/' },
+    ],
   },
   {
     name: 'FridgeMate',
