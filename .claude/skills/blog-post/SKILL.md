@@ -67,6 +67,12 @@ Read `references/voice.md` first. The structural rules:
 - Open with the situation in one paragraph: where, when, what for, what the constraint was.
   Then the idea, then how it was built, then what went wrong, then where it stands. Reorder if
   the story wants it; drop sections that would be padding.
+- **Altitude: interesting problems, not integration trivia.** A post is the three or four
+  problems that were genuinely hard or surprising (a wrong assumption, a bug that presented
+  as a different bug, a design that made a later feature free), each with its cause and fix.
+  Leave out library gotchas, lint rules, schema validators, flag names, byte sizes and file
+  layout unless one of them *is* the story. If a paragraph would fit in the repo's CLAUDE.md,
+  it belongs there and not in the post. Jesse asked for this explicitly on the first post.
 - Prose paragraphs of 3–6 sentences. Lists only for things that are actually lists (a parts
   list, a spec, the steps of a protocol). Never a list of one-line paragraphs in disguise.
 - Code only when the code is the point: the tricky bit, the workaround, the config that
