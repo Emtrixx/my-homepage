@@ -17,6 +17,17 @@ export interface Project {
 
 export const featured: Project[] = [
   {
+    name: 'Splat Fighter',
+    summary:
+      'Browser 2.5D fighting game whose arenas are Gaussian-splat scans of real places — film a room, then fight in it.',
+    detail:
+      'A deterministic combat core drives rollback netcode over WebRTC, and a self-hosted GPU pipeline reconstructs uploaded videos into arenas — and a few photos into a rigged, playable fighter.',
+    image: '/images/splat-fighter.jpg',
+    alt: 'Two custom fighters mid-match in a Gaussian-splat scan of a garden courtyard',
+    tags: ['TypeScript', 'Three.js', 'Gaussian Splatting', 'WebRTC'],
+    links: [{ label: 'Play', href: 'https://splat-fighter.jesseguenzl.com' }],
+  },
+  {
     name: 'FridgeMate',
     summary:
       'Native Android app for managing your fridge, creating shopping lists, and finding recipes.',
