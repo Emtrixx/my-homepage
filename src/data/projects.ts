@@ -31,6 +31,36 @@ export const featured: Project[] = [
     ],
   },
   {
+    name: 'CarRacing world models',
+    summary:
+      'Bachelor thesis: a GRU and a Transformer learn to dream Gymnasium\'s CarRacing-v3, and a PPO agent trains inside the dream.',
+    detail:
+      'A VQ-VAE turns each frame into 16 tokens, two 40M-parameter world models predict the next ones, and a Dyna loop alternates real driving with dreamed driving. The GRU won.',
+    image: '/images/car-racing-world-model.avif',
+    alt: 'Two frames dreamed by the GRU world model: a grey road curving through green grass with a red car at the bottom',
+    tags: ['Python', 'PyTorch', 'Reinforcement Learning', 'World Models'],
+    links: [
+      { label: 'Write-up', href: '/blog/car-racing-world-model/' },
+      { label: 'Explore', href: 'https://vqvae.jesseguenzl.com/' },
+      { label: 'Source', href: 'https://github.com/Emtrixx/car-racing-world-model' },
+    ],
+  },
+  {
+    name: 'PicoMix',
+    summary:
+      'Cocktail mixing machine built for an IoT project at Metropolia University Helsinki, using embedded C and FreeRTOS on a Raspberry Pi Pico W.',
+    detail:
+      'Every part of the machine is its own FreeRTOS task, two pump tasks pour both liquids at once, an RFID card pays with credits, and a web app tracks accounts and bottle levels.',
+    image: '/images/blog/picomix/outside.avif',
+    alt: 'The finished PicoMix machine on a lab bench: a plywood box with a paper cup in the dispensing bay, an RFID reader on the front and three cut-open bottles on top',
+    tags: ['C', 'FreeRTOS', 'Embedded'],
+    links: [
+      { label: 'Write-up', href: '/blog/picomix/' },
+      { label: 'Watch', href: 'https://www.youtube.com/watch?v=Rg3dUluKYmY' },
+      { label: 'Source', href: 'https://github.com/metromix-fi/PicoMixController' },
+    ],
+  },
+  {
     name: 'FridgeMate',
     summary:
       'Native Android app for managing your fridge, creating shopping lists, and finding recipes.',
@@ -67,17 +97,6 @@ export const featured: Project[] = [
 ];
 
 export const secondary: Project[] = [
-  {
-    name: 'PicoMix',
-    summary:
-      'Cocktail mixing machine built for an IoT project at Metropolia University Helsinki, using embedded C and FreeRTOS on a Raspberry Pi Pico W.',
-    tags: ['C', 'FreeRTOS', 'Embedded'],
-    links: [
-      { label: 'Write-up', href: '/blog/picomix/' },
-      { label: 'Watch', href: 'https://www.youtube.com/watch?v=Rg3dUluKYmY' },
-      { label: 'Source', href: 'https://github.com/metromix-fi/PicoMixController' },
-    ],
-  },
   {
     name: 'Mandelbrot',
     summary:
