@@ -73,6 +73,7 @@ export const secondary: Project[] = [
       'Cocktail mixing machine built for an IoT project at Metropolia University Helsinki, using embedded C and FreeRTOS on a Raspberry Pi Pico W.',
     tags: ['C', 'FreeRTOS', 'Embedded'],
     links: [
+      { label: 'Write-up', href: '/blog/picomix/' },
       { label: 'Watch', href: 'https://www.youtube.com/watch?v=Rg3dUluKYmY' },
       { label: 'Source', href: 'https://github.com/metromix-fi/PicoMixController' },
     ],
