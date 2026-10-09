@@ -11,12 +11,34 @@ npm run preview  # serve dist/ locally
 
 ## Deploy
 
+Pushes to `main` run `.github/workflows/deploy.yml`: install dependencies, type-check,
+build, verify the static pages and WASM assets, then deploy over SSH from a GitHub-hosted
+runner. Pull requests run the build checks only. The workflow can also be run manually.
+
+Like `gebr-schulz-website`, deployment uses the `deploy` account on the server. Repository
+variables: `DEPLOY_HOST`, `DEPLOY_PORT`, `DEPLOY_USER`, and `DEPLOY_PATH` (the absolute
+server checkout path). Repository secrets: `DEPLOY_SSH_KEY` (the local `github-deploy`
+private key) and `DEPLOY_KNOWN_HOSTS` (the trusted SSH host entry). Keys stay out of Git.
+
+`scripts/deploy.sh` locks the server checkout, fast-forwards `main` to the commit that
+passed CI, skips superseded runs, and rebuilds the `homepage` service before replacing
+the running container. The checkout must belong to the deployment account and have no
+tracked local changes. Keep server-specific settings in `.env` or `compose.override.yaml`.
+
+To rebuild manually on the server:
+
 ```bash
 docker compose up -d --build
 ```
 
 Multi-stage build: Node builds `dist/`, nginx serves it on port 80, published to
 `127.0.0.1:3001` for the reverse proxy in front of it.
+
+## Home Assistant
+
+`/homeassistant/` is the public JesseHomeAssistant OAuth application homepage. It describes
+the personal Google Calendar and Google Tasks integration and links to `/impressum` for
+the privacy policy.
 
 ## The background
 

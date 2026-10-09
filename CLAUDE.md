@@ -16,7 +16,9 @@ docker compose up -d --build   # production image: node builds dist/, nginx serv
 
 There are no tests. CI (`.github/workflows/deploy.yml`) runs `check` + `build`, then asserts the WASM
 demo files survived the build and that `<base href="/mandelbrot/">` is still in the emitted HTML.
-Pushing to `main` triggers the `deploy` job on a self-hosted runner, which rebuilds the live site.
+CI also verifies the Home Assistant app page and its privacy-policy link. Pushing to `main`
+triggers the `deploy` job on a GitHub-hosted runner, which uses SSH to run `scripts/deploy.sh`
+in the server checkout and rebuild the live site's `homepage` Docker Compose service.
 
 ## Architecture
 

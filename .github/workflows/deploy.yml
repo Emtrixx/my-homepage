@@ -1,16 +1,29 @@
-name: Build and deploy
+name: Build and deploy website
 
 on:
   push:
     branches: [main]
   pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Let a running server deployment finish before starting another one.
+concurrency:
+  group: website-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: 22
           cache: npm
@@ -28,14 +41,51 @@ jobs:
           # The bundles resolve chunks against the document URL, so these pages
           # must exist as directories with a trailing slash.
           grep -q 'base href="/mandelbrot/"' dist/mandelbrot/index.html
+      - name: Check the Home Assistant app page
+        run: |
+          test -f dist/homeassistant/index.html
+          grep -q 'JesseHomeAssistant' dist/homeassistant/index.html
+          grep -q 'href="/impressum"' dist/homeassistant/index.html
 
   deploy:
     needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: self-hosted
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - name: Rebuild and restart the container
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Pull the validated commit and redeploy Docker
+        shell: bash
+        env:
+          DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
+          DEPLOY_PORT: ${{ vars.DEPLOY_PORT || '22' }}
+          DEPLOY_USER: ${{ vars.DEPLOY_USER }}
+          DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
         run: |
-          docker compose down
-          docker compose up -d --build
+          set -euo pipefail
+          : "${DEPLOY_HOST:?Set the DEPLOY_HOST repository variable}"
+          : "${DEPLOY_USER:?Set the DEPLOY_USER repository variable}"
+          : "${DEPLOY_PATH:?Set the DEPLOY_PATH repository variable}"
+          : "${DEPLOY_SSH_KEY:?Set the DEPLOY_SSH_KEY repository secret}"
+          : "${DEPLOY_KNOWN_HOSTS:?Set the DEPLOY_KNOWN_HOSTS repository secret}"
+
+          ssh_dir=$(mktemp -d "$RUNNER_TEMP/deploy-ssh.XXXXXX")
+          trap 'rm -rf "$ssh_dir"' EXIT
+          umask 077
+          printf '%s\n' "$DEPLOY_SSH_KEY" > "$ssh_dir/key"
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > "$ssh_dir/known_hosts"
+
+          printf -v remote_command 'bash -s -- %q %q' "$DEPLOY_PATH" "$GITHUB_SHA"
+          ssh -i "$ssh_dir/key" -p "$DEPLOY_PORT" \
+            -o BatchMode=yes \
+            -o IdentitiesOnly=yes \
+            -o StrictHostKeyChecking=yes \
+            -o UserKnownHostsFile="$ssh_dir/known_hosts" \
+            -o ConnectTimeout=15 \
+            -o ServerAliveInterval=30 \
+            -o ServerAliveCountMax=5 \
+            "$DEPLOY_USER@$DEPLOY_HOST" "$remote_command" < scripts/deploy.sh

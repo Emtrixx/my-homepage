@@ -1,0 +1,37 @@
+---
+import { Font } from 'astro:assets';
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JesseHomeAssistant</title>
+    <meta
+      name="description"
+      content="JesseHomeAssistant is a personal, self-hosted Home Assistant integration used to connect Google Calendar and Google Tasks to my private smart-home dashboard."
+    />
+    <link rel="icon" href="/images/moon.avif" />
+    <Font cssVariable="--font-anybody" preload />
+    <Font cssVariable="--font-newsreader" preload />
+  </head>
+  <body class="min-h-dvh">
+    <main class="mx-auto max-w-3xl px-5 py-16 sm:px-8">
+      <h1 class="break-words text-2xl sm:text-3xl">JesseHomeAssistant</h1>
+      <div class="prose mt-6 text-lg">
+        <p>
+          JesseHomeAssistant is a personal, self-hosted Home Assistant integration used to connect
+          Google Calendar and Google Tasks to my private smart-home dashboard.
+        </p>
+        <p>
+          The integration allows me to view calendar events, manage personal tasks, and use this
+          information in home automations.
+        </p>
+        <p>This application is intended for personal use only.</p>
+        <p><a href="/impressum">Privacy Policy</a></p>
+      </div>
+    </main>
+  </body>
+</html>
